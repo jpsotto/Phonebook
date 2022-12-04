@@ -36,3 +36,21 @@ void create_node(int _val){
     _lastnode->x = _val;
     _lastnode->nxt = NULL;
 }
+/*
+This function checks on all the contents of the node and prints it.
+*/
+void browse(){
+    struct node *browsebuffer;
+    browsebuffer = _firstnode;
+    // check if node is empty
+    if(browsebuffer == NULL){
+        printf("Node is empty!");
+    }
+    else{
+        while(browsebuffer != NULL){
+            //print data of the recent node
+            printf("CONTENT: %d \n", browsebuffer->x);
+            browsebuffer = browsebuffer->nxt;
+        }
+    }
+}

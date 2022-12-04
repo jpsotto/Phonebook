@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <windows.h> 
+//This library contains the needed dependencies to be able to clear the terminal as needed in a windows gcc compiler.
+
 
 void cls(HANDLE hConsole)
 {
