@@ -1,0 +1,21 @@
+/*
+SLL
+Nodes - generated group of data based on a structure
+Basic Operation for a data type
+SLL - Single Linked List
+DLL - Double Linked List
+functions:
+insert
+delete
+change
+browse
+
+makenull()
+    make list empty
+
+insert(x,p,L)
+retrieve(p,L)
+delete(p,L)
+
+
+*/
