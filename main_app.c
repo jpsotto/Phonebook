@@ -53,12 +53,13 @@ Then the next value depends on what you press.
 80 when you press down
 75 when you press left
 77 when you pressed right
-
 */
     ch = _getch();
     // printf("%d\n",ch);//this is for debugging
     if(ch == 13){
         printf("Enter Key was pressed!");
+        _enter_key_indicator = (char *)malloc(sizeof(char));
+        *_enter_key_indicator = 0x00;
         return ENTER;
     }
     else if (ch == 0 || ch == 224){
@@ -69,7 +70,7 @@ Then the next value depends on what you press.
                 if(_main_app_indicator == 4){ //this snippet initiates the first indicator to the down most option.
                     _main_app_indicator = 4;
                 }
-                printf("Arrow up has been pressed!");
+                // printf("Arrow up has been pressed!");
                 return UP;
                 break;
             case 80:
@@ -97,7 +98,6 @@ Then the next value depends on what you press.
     else{
         return 0x10;
     }
-    return 0x10;
 }
 
 char intro_screen(){

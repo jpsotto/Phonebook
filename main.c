@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-// #include <conio.h>
 #include "ListSLL.h"
 #include "ListSLL.c"
 #include "main_app.h"
@@ -27,10 +26,37 @@ while(1){
         app_response = intro_screen();
     }
     else{
-        app_response = home_screen(app_response);
+        if(app_response == ENTER){
+            if(*_enter_key_indicator == 0x00){
+                switch(_main_app_indicator){
+                    case 0:
+                        printf("Execute add command!");
+                        break;
+                    case 1:
+                        printf("Execute browse command!");
+                        break;
+                    case 2:
+                        printf("Execute change command!");
+                        break;
+                    case 3:
+                        printf("Execute detected command!");
+                        break;
+                    default:
+                        cls(hStdout);//clear screen
+                        printf("Nothing is chosen yet! Please select from the options!\n");
+                        app_response = 0x10;
+                        break;
+                }
+                *_enter_key_indicator = 0x01;
+            }
+            
+        }
+        else{
+            app_response = home_screen(app_response);
+            printf("\n");
+            cls(hStdout);//clear screen
+        }
     }
-    printf("\n");
-    cls(hStdout);
 }
 
     // insert(10,_firstnode);

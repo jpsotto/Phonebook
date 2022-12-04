@@ -12,6 +12,7 @@ void app_indicator(char);
 char intro_screen();
 
 char _main_app_indicator = 4;
+char *_enter_key_indicator;//This pointer indicates when a enter is pressed.
 
 
 
