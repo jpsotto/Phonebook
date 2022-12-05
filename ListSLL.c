@@ -36,3 +36,49 @@ void create_node(int _val){
     _lastnode->x = _val;
     _lastnode->nxt = NULL;
 }
+
+/*
+****NEEDED FUNCTIONS***
+*/
+/*
+This functions adds and instance to the phonebook
+*/
+void add(){
+    printf("An instance has been added to the phonebook!");
+}
+
+/*
+This function checks on all the contents of the node and prints it.
+*/
+void browse(){
+    //SIMULATED CODE ONLY
+    printf("Browsing phonebook...");
+    //***LATEST CODE
+    // struct node *browsebuffer;
+    // browsebuffer = _firstnode;
+    // // check if node is empty
+    // if(browsebuffer == NULL){
+    //     printf("Node is empty!");
+    // }
+    // else{
+    //     while(browsebuffer != NULL){
+    //         //print data of the recent node
+    //         printf("CONTENT: %d \n", browsebuffer->x);
+    //         browsebuffer = browsebuffer->nxt;
+    //     }
+    // }
+}
+
+/*
+This function changes the details of an already existing node in the phonebook.
+*/
+void change(){
+    printf("An instance has been changed!");
+}
+
+/*
+This function deletes an existing nod in the phonebook.
+*/
+void delete(){
+    printf("An instance has been deleted!");
+}

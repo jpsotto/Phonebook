@@ -1,39 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include "ListSLL.h"
 #include "ListSLL.c"
+#include "main_app.h"
+#include "main_app.c"
 #include "terminal_ctrl.c"
 
 //App code initialization
 struct node *_firstnode, *_lastnode;
-
-
-// void insert(int _x){
-//     _firstnode = (struct node*)malloc(sizeof(struct node));
-//     nextnode = _firstnode;
-//     nextnode->x = _x;
-//     nextnode->nxt = NULL;
-// }
-
-void browse(){
-    struct node *browsebuffer;
-    browsebuffer = _firstnode;
-    // check if node is empty
-    if(browsebuffer == NULL){
-        printf("Node is empty!");
-    }
-    else{
-        while(browsebuffer != NULL){
-            //print data of the recent node
-            printf("CONTENT: %d \n", browsebuffer->x);
-            browsebuffer = browsebuffer->nxt;
-        }
-    }
-}
-
+struct name *_firstletter, *_lastletter;
+char app_response=0x00;
 
 int main(){
+int ch;
+int _testvar;
+char *_name,*_affiliation;
+long int *_phone_number;
 /*
 Windows.h terminal_ctrl Initialization
 */
@@ -43,7 +25,51 @@ hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 /*
 Main App Code
 */
-
+while(1){
+    if(app_response == 0x00){
+        app_response = home_screen(app_response);
+    }
+    else {
+        if(app_response == ENTER){
+            if(*_enter_key_indicator == 0x00){
+                switch(_main_app_indicator){
+                    case 0:
+                        printf("Execute add command!\n");
+                        printf("Please type in the name: ");
+                        scanf("%c", _name);
+                        int _counter;
+                        // while(*_name == NULL){
+                        //     _counter++;
+                        //     scanf("%c", (_name+_counter));
+                        // }
+                        printf("\nTest Value: %c",*_name);
+                        printf("\nTest Value: %c",*(_name+1));
+                        break;
+                    case 1:
+                        printf("Execute browse command!");
+                        break;
+                    case 2:
+                        printf("Execute change command!");
+                        break;
+                    case 3:
+                        printf("Execute detected command!");
+                        break;
+                    default:
+                        cls(hStdout);//clear screen
+                        printf("Nothing is chosen yet! Please select from the options!\n");
+                        app_response = 0x10;
+                        break;
+                }
+                *_enter_key_indicator = 0x01;
+            }    
+        }
+        else{
+            cls(hStdout);//clear screen
+            app_response = home_screen(app_response);
+            printf("\n");
+        }
+    }
+}
 
     // insert(10,_firstnode);
     // browse();
