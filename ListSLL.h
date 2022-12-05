@@ -17,4 +17,12 @@ void browse(void);
 void change(void);
 void delete(void);
 
+/*
+structure to allocating abstract variable for the inputs
+*/
+struct name{
+    char letter;
+    struct name *nxt_letter;
+};
+
 #endif

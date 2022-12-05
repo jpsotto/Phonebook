@@ -8,10 +8,14 @@
 
 //App code initialization
 struct node *_firstnode, *_lastnode;
+struct name *_firstletter, *_lastletter;
 char app_response=0x00;
 
 int main(){
 int ch;
+int _testvar;
+char *_name,*_affiliation;
+long int *_phone_number;
 /*
 Windows.h terminal_ctrl Initialization
 */
@@ -23,14 +27,23 @@ Main App Code
 */
 while(1){
     if(app_response == 0x00){
-        app_response = intro_screen();
+        app_response = home_screen(app_response);
     }
-    else{
+    else {
         if(app_response == ENTER){
             if(*_enter_key_indicator == 0x00){
                 switch(_main_app_indicator){
                     case 0:
-                        printf("Execute add command!");
+                        printf("Execute add command!\n");
+                        printf("Please type in the name: ");
+                        scanf("%c", _name);
+                        int _counter;
+                        // while(*_name == NULL){
+                        //     _counter++;
+                        //     scanf("%c", (_name+_counter));
+                        // }
+                        printf("\nTest Value: %c",*_name);
+                        printf("\nTest Value: %c",*(_name+1));
                         break;
                     case 1:
                         printf("Execute browse command!");
@@ -48,13 +61,12 @@ while(1){
                         break;
                 }
                 *_enter_key_indicator = 0x01;
-            }
-            
+            }    
         }
         else{
+            cls(hStdout);//clear screen
             app_response = home_screen(app_response);
             printf("\n");
-            cls(hStdout);//clear screen
         }
     }
 }

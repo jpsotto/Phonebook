@@ -34,13 +34,17 @@ char home_screen(char _response){
         _marker[i] = 0;
     }
     _marker[_main_app_indicator] = '>';
-    printf("***Phonebook List***\n");
-    printf("\n");
-    printf("***OPTIONS***\n");
+    // printf("***Phonebook List***\n");
+    printf("MAIN MENU\n");
+    // printf("***OPTIONS***\n");
     printf("ADD[%c]\n", _marker[0]);
     printf("BROWSE[%c]\n", _marker[1]);
     printf("CHANGE[%c]\n", _marker[2]);
     printf("DELETE[%c]\n", _marker[3]);
+    printf("\n");
+    printf("\n");
+    printf("NOTE: Press up or down arrow key + enter to select from the main.\n");
+    footer();
 
 /*
 NOTE: Using getch.
@@ -100,10 +104,11 @@ Then the next value depends on what you press.
     }
 }
 
-char intro_screen(){
+void footer(){
+    printf("\n");
     printf("***FORMATIVE ASSESSMENT1***\n");
     printf("Created by: John Perloe M. Sotto\n");
     printf("MS Computer Engineering Major in Software Engineering\n");
     printf("\n");
-    home_screen(0x00);
+    // home_screen(0);
 }
