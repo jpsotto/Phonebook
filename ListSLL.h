@@ -1,6 +1,10 @@
 #ifndef ListSLL
 #define ListSLL
 
+#define NS      0
+#define OG      1
+#define DONE    2
+
 struct node{
     int x;
     struct node *nxt;
@@ -12,7 +16,7 @@ void insert(int _x,struct node *_L);
 /*
 Requirement functions!
 */
-void add(void);
+char add();
 void browse(void);
 void change(void);
 void delete(void);

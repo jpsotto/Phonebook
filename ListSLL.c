@@ -3,6 +3,9 @@
 #include "ListSLL.h"
 
 extern struct node *_firstnode, *_lastnode;
+extern struct name *_firstletter_name, *_lastletter_name;
+extern char *_name,*_affiliation;
+extern long int *_phone_number;
 /*
 _x - value of the node
 _p - position of the specific node in the list to be inserted
@@ -41,10 +44,26 @@ void create_node(int _val){
 ****NEEDED FUNCTIONS***
 */
 /*
-This functions adds and instance to the phonebook
+This functions adds and instance to the phonebook.
+It will first request for the name of the entry, followed by the phone number, and affiliation.
+
+Return Value:
+Status of the function
+NS      - Not Started
+OG      - Ongoing
+DONE    - Finished
 */
-void add(){
-    printf("An instance has been added to the phonebook!");
+char add(){
+    printf("Initiating add function...");
+    printf("Please type in the name: ");
+    _name = (char *)malloc(32*sizeof(char ));
+    scanf("%c", _name);
+    printf("First Letter: %c", *_name);
+    printf("Second Letter: %c", *(_name+1));
+    // _firstletter_name = (struct name*)malloc(sizeof(struct name));
+    // _lastletter_name = _firstletter_name;
+    // _lastletter_name->letter = _letter;
+    // _lastletter_name->nxt_letter = NULL;
 }
 
 /*

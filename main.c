@@ -8,8 +8,9 @@
 
 //App code initialization
 struct node *_firstnode, *_lastnode;
-struct name *_firstletter, *_lastletter;
+struct name *_firstletter_name, *_lastletter_name;
 char app_response=0x00;
+char list_response = 0x00;
 
 int main(){
 int ch;
@@ -36,14 +37,15 @@ while(1){
                     case 0:
                         printf("Execute add command!\n");
                         printf("Please type in the name: ");
-                        scanf("%c", _name);
-                        int _counter;
+                        // scanf("%c", _name);
+                        // int _counter;
+                        list_response = add();
                         // while(*_name == NULL){
                         //     _counter++;
                         //     scanf("%c", (_name+_counter));
                         // }
-                        printf("\nTest Value: %c",*_name);
-                        printf("\nTest Value: %c",*(_name+1));
+                        // printf("\nTest Value: %c",*_name);
+                        // printf("\nTest Value: %c",*(_name+1));
                         break;
                     case 1:
                         printf("Execute browse command!");
