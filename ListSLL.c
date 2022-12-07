@@ -4,8 +4,8 @@
 
 extern struct node *_firstnode, *_lastnode;
 extern struct name *_firstletter_name, *_lastletter_name;
-extern char *_name,*_affiliation;
-extern long int *_phone_number;
+// extern char *_name,*_affiliation;
+// extern long int *_phone_number;
 /*
 _x - value of the node
 _p - position of the specific node in the list to be inserted
@@ -54,16 +54,26 @@ OG      - Ongoing
 DONE    - Finished
 */
 char add(){
-    printf("Initiating add function...");
+    char *_name;
+    int _i = 0;
+    printf("Initiating add function...\n");
     printf("Please type in the name: ");
-    _name = (char *)malloc(32*sizeof(char ));
-    scanf("%c", _name);
-    printf("First Letter: %c", *_name);
-    printf("Second Letter: %c", *(_name+1));
+    // _name = 0;
+    _name = (char *)malloc(32);
+    scanf("%[^\n]%*c", _name);
+    // scanf("%c", _name);
+    // printf("%s",_name);
+    while(*_name != '\0'){
+        printf("%c",*_name);
+        _name++;
+        _i++;
+    }
+    printf("%d",_i);
     // _firstletter_name = (struct name*)malloc(sizeof(struct name));
     // _lastletter_name = _firstletter_name;
     // _lastletter_name->letter = _letter;
     // _lastletter_name->nxt_letter = NULL;
+    return DONE;
 }
 
 /*

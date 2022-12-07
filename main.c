@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include "ListSLL.h"
 #include "ListSLL.c"
 #include "main_app.h"
@@ -15,8 +16,8 @@ char list_response = 0x00;
 int main(){
 int ch;
 int _testvar;
-char *_name,*_affiliation;
-long int *_phone_number;
+// char *_name,*_affiliation;
+// long int *_phone_number;
 /*
 Windows.h terminal_ctrl Initialization
 */
@@ -36,16 +37,7 @@ while(1){
                 switch(_main_app_indicator){
                     case 0:
                         printf("Execute add command!\n");
-                        printf("Please type in the name: ");
-                        // scanf("%c", _name);
-                        // int _counter;
                         list_response = add();
-                        // while(*_name == NULL){
-                        //     _counter++;
-                        //     scanf("%c", (_name+_counter));
-                        // }
-                        // printf("\nTest Value: %c",*_name);
-                        // printf("\nTest Value: %c",*(_name+1));
                         break;
                     case 1:
                         printf("Execute browse command!");
