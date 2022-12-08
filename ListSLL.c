@@ -4,6 +4,7 @@
 
 extern struct node *_firstnode, *_lastnode;
 extern struct Name *firstletter_name, *lastletter_name;
+extern long int _numberbuffer;
 // extern char *_name,*_affiliation;
 // extern long int *_phone_number;
 /*
@@ -55,8 +56,9 @@ DONE    - Finished
 */
 char add(){
     printf("Initiating add function...\n");
-    printf("Please type in the full name: ");
     firstletter_name = add_name();
+    printf("Name was added!\n");
+    _numberbuffer = add_number();
     // _name = 0;
     // _firstletter_name = (struct name*)malloc(sizeof(struct name));
     // _lastletter_name = _firstletter_name;
@@ -70,12 +72,19 @@ add_name - this function allocates memory of the added name.
 */
 struct Name *add_name(){
     char *_name;
-    char _buffer;
-    int _i = 0;
-     _name = (char *)malloc(sizeof(char)); //allocate a memory location to a pointer variable _name
+    int _i = 0, _space = 0;
+    printf("Please type in the full name: ");
+    _name = (char *)malloc(sizeof(char)); //allocate a memory location to a pointer variable _name
     scanf("%[^\n]%*c", _name); //scan all incoming characters from keyboard except enter '\n' and put it in the memory location of pointer _name
     do{ //loop until '\0' value was found in the _name memory location
         // _buffer = *_name; //pass the value of the memory pointer _name to buffer
+        // if(*_name == '\0'){
+        //     _space++;
+        //     printf("space detected");//FOR DEBUG PURPOSES
+        // }
+        // else{
+        //     _space = 0;
+        // }
         if(*_name != '\0'){
             if(_i == 0){
                 firstletter_name = (struct Name*)malloc(sizeof(struct Name)); //allocate a memory location for the firstletter of the name
@@ -92,9 +101,10 @@ struct Name *add_name(){
                 lastletter_name = lastletter_name->nxt_letter; //pass the pointer memory address of the last node to the pointer variable lastletter_name
             }
             // printf("%c", _buffer);//FOR DEBUG PURPOSES
-            _name++;
+            // _name++;
             _i++;
         }
+        _name++;
     }while(*_name != '\0');
 
     printf("%d",_i); //print size of name (FOR DEBUG PURPOSES)
@@ -105,7 +115,12 @@ struct Name *add_name(){
 add_number - this function asks the user's number. 
 */
 long int add_number(){
-
+    long int _buffer;
+    printf("Please input your number: ");
+    scanf("%ld", &_buffer);
+    printf("%ld", _buffer);
+    // printf("%ld", _buffer); //for DEBUG purposes
+    return _buffer;
 }
 
 /*

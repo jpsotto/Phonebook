@@ -11,6 +11,7 @@
 struct node *_firstnode, *_lastnode;
 struct Name *firstletter_name, *lastletter_name;
 struct record *firstrecord, *lastrecord;
+long int _numberbuffer;
 char app_response=0x00;
 char list_response = 0x00;
 
