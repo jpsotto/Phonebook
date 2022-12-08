@@ -9,7 +9,8 @@
 
 //App code initialization
 struct node *_firstnode, *_lastnode;
-struct name *_firstletter_name, *_lastletter_name;
+struct Name *firstletter_name, *lastletter_name;
+struct record *firstrecord, *lastrecord;
 char app_response=0x00;
 char list_response = 0x00;
 

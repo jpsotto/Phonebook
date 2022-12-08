@@ -14,6 +14,11 @@ void create_node(int _x);
 void insert(int _x,struct node *_L);
 
 /*
+Requirement functions for add
+*/
+struct Name *add_name(void);
+long int add_number(void);
+/*
 Requirement functions!
 */
 char add();
@@ -22,11 +27,28 @@ void change(void);
 void delete(void);
 
 /*
-structure to allocating abstract variable for the inputs
+Requirement Structure
 */
-struct name{
+struct record{
+    struct Name *record_name;
+    long int record_number;
+    struct Affiliation *record_affiliation;
+};
+
+/*
+Structure for Name
+*/
+struct Name{
     char letter;
-    struct name *nxt_letter;
+    struct Name *nxt_letter;
+};
+int namesize;
+/*
+Structure for Name
+*/
+struct Affiliation{
+    char _letter;
+    struct Affiliation *next_letter;
 };
 
 #endif
