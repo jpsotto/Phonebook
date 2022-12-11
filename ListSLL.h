@@ -16,8 +16,7 @@ void insert(int _x,struct node *_L);
 /*
 Requirement functions for add
 */
-struct Name *add_name(void);
-long int add_number(void);
+struct Entry *_add(void);
 /*
 Requirement functions!
 */
@@ -38,9 +37,9 @@ struct record{
 /*
 Structure for Name
 */
-struct Name{
-    char letter;
-    struct Name *nxt_letter;
+struct Entry{
+    char *letter;
+    struct Entry *nxt_letter;
 };
 int namesize;
 /*

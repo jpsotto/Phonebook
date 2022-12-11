@@ -1,6 +1,7 @@
 #ifndef main_app
 #define main_app
 
+#define DEFAULT 0x00
 #define UP      0x01
 #define DOWN    0x02
 #define LEFT    0x03

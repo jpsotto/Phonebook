@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ListSLL.h"
 
 extern struct node *_firstnode, *_lastnode;
-extern struct Name *firstletter_name, *lastletter_name;
+extern struct Entry *first_entry, *last_entry;
 extern long int _numberbuffer;
 // extern char *_name,*_affiliation;
 // extern long int *_phone_number;
@@ -56,71 +57,57 @@ DONE    - Finished
 */
 char add(){
     printf("Initiating add function...\n");
-    firstletter_name = add_name();
-    printf("Name was added!\n");
-    _numberbuffer = add_number();
-    // _name = 0;
-    // _firstletter_name = (struct name*)malloc(sizeof(struct name));
-    // _lastletter_name = _firstletter_name;
-    // _lastletter_name->letter = _letter;
-    // _lastletter_name->nxt_letter = NULL;
+    printf("Please type the full name: \n");
+    first_entry = _add();
+    printf("\nName was added!\n");
+
     return DONE;
 }
 
 /*
 add_name - this function allocates memory of the added name.
 */
-struct Name *add_name(){
-    char *_name;
-    int _i = 0, _space = 0;
-    printf("Please type in the full name: ");
-    _name = (char *)malloc(sizeof(char)); //allocate a memory location to a pointer variable _name
-    scanf("%[^\n]%*c", _name); //scan all incoming characters from keyboard except enter '\n' and put it in the memory location of pointer _name
-    do{ //loop until '\0' value was found in the _name memory location
-        // _buffer = *_name; //pass the value of the memory pointer _name to buffer
-        // if(*_name == '\0'){
-        //     _space++;
-        //     printf("space detected");//FOR DEBUG PURPOSES
-        // }
-        // else{
-        //     _space = 0;
-        // }
-        if(*_name != '\0'){
-            if(_i == 0){
-                firstletter_name = (struct Name*)malloc(sizeof(struct Name)); //allocate a memory location for the firstletter of the name
-                firstletter_name->letter = *_name; //pass the value in the pointer _name to the element letter if the 'Name' structure
-                lastletter_name = firstletter_name; //pass the pointer memory address of the firstletter_name to the lastletter_name
-                lastletter_name->nxt_letter = NULL; //terminate the latest node
-                printf("%c", lastletter_name->letter);//FOR DEBUG PURPOSES
-            }
-            else{
-                lastletter_name->nxt_letter = (struct Name*)malloc(sizeof(struct Name)); //allocate a memoryfor the succeding letters of the name
-                lastletter_name->nxt_letter->letter = *_name; //pass the value in the pointer  _name to the element letter of the 'Name' structure
-                printf("%c", lastletter_name->nxt_letter->letter); //FOR DEBUG PURPOSES
-                lastletter_name->nxt_letter->nxt_letter = NULL; //terminate the latest node
-                lastletter_name = lastletter_name->nxt_letter; //pass the pointer memory address of the last node to the pointer variable lastletter_name
-            }
-            // printf("%c", _buffer);//FOR DEBUG PURPOSES
-            // _name++;
-            _i++;
-        }
-        _name++;
-    }while(*_name != '\0');
-
-    printf("%d",_i); //print size of name (FOR DEBUG PURPOSES)
-    return firstletter_name;
-}
-
-/*
-add_number - this function asks the user's number. 
-*/
-long int add_number(){
-    long int _buffer;
-    printf("Please input your number: ");
-    scanf("%ld", &_buffer);
-    printf("%ld", _buffer);
-    // printf("%ld", _buffer); //for DEBUG purposes
-    return _buffer;
+struct Entry *_add(){
+    char *_entry,*_bufferptr;
+    size_t _buffersize;
+    _entry = (char *)malloc(sizeof(_entry)); //allocate a memory location to a pointer variable _entry
+    // _buffer = (char *)malloc(sizeof(_buffer));
+    // scanf("%[^'\n']%*c", _name); //scan all incoming characters from keyboard except enter '\n' and put it in the memory location of pointer _entry
+    gets(_entry); //scan a string
+    // printf("%s\n", _entry);//FOR DEBUG PURPOSES
+    // printf("%s\n", _entry);//FOR DEBUG PURPOSES
+    // printf("%s\n", _entry);//FOR DEBUG PURPOSES
+    // _entry = (char *)calloc(strlen(_entry));
+    _buffersize = strlen(_entry);
+    // printf("%i\n", _buffersize);
+    _bufferptr = (char *)malloc(_buffersize);
+    _bufferptr = _entry;
+    // // strcpy(_bufferptr,_entry);
+    // // printf(".");
+    // char _buffer[_buffersize];  
+    // for(int _i = 0; *_entry != '\0'; _i++){
+    //     _buffer[_i] = *_entry;
+    //     _entry++;
+    // }
+    // printf(".");
+    // _bufferptr = _buffer;
+    // printf(".");
+    first_entry = (struct Entry*)malloc(sizeof(struct Entry)); //allocate a memory location for the firstletter of the entry
+    printf(".");
+    last_entry = first_entry;
+    // printf(".");
+    last_entry->letter = _bufferptr;
+    // printf(".");
+    printf("%s", last_entry->letter);
+    last_entry = first_entry; //entrypass the pointer memory address of the firstletter_name to the last_entry
+    // printf(".");
+    // last_entry->nxt_letter = NULL; //terminate the latest node
+    // printf("%s",*firstletter_name->letter);
+    // printf("%s", _name); // FOR DEBUG PURPOSES
+    // printf(".");
+    getch();
+    free(_entry);//free the allocated memory on the pointer variable '_entry'
+    return 0;
 }
 
 /*

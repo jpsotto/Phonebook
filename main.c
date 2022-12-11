@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <string.h>
 #include "ListSLL.h"
 #include "ListSLL.c"
 #include "main_app.h"
@@ -9,7 +10,7 @@
 
 //App code initialization
 struct node *_firstnode, *_lastnode;
-struct Name *firstletter_name, *lastletter_name;
+struct Entry *first_entry, *last_entry;
 struct record *firstrecord, *lastrecord;
 long int _numberbuffer;
 char app_response=0x00;
@@ -30,7 +31,7 @@ hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 Main App Code
 */
 while(1){
-    if(app_response == 0x00){
+    if(app_response == DEFAULT){
         app_response = home_screen(app_response);
     }
     else {
@@ -40,6 +41,10 @@ while(1){
                     case 0:
                         printf("Execute add command!\n");
                         list_response = add();
+                        if(list_response == DONE){
+                            app_response = DEFAULT;
+                            cls(hStdout);//clear screen
+                        }
                         break;
                     case 1:
                         printf("Execute browse command!");
