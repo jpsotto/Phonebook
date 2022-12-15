@@ -10,7 +10,7 @@
 
 //App code initialization
 struct node *_firstnode, *_lastnode;
-struct Entry *first_entry, *last_entry;
+struct Entry *_entry;
 struct record *firstrecord, *lastrecord;
 long int _numberbuffer;
 char app_response=0x00;
@@ -27,6 +27,10 @@ Windows.h terminal_ctrl Initialization
 HANDLE hStdout;
 hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
+/*
+Initiate Entry buffer;
+*/
+ _entry = (struct Entry*)malloc(sizeof(struct Entry)); //allocate a memory location for the firstletter of the entry
 /*
 Main App Code
 */

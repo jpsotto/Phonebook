@@ -4,7 +4,8 @@
 #include "ListSLL.h"
 
 extern struct node *_firstnode, *_lastnode;
-extern struct Entry *first_entry, *last_entry;
+extern struct Entry *_entry;
+extern struct record *firstrecord, *lastrecord;
 extern long int _numberbuffer;
 // extern char *_name,*_affiliation;
 // extern long int *_phone_number;
@@ -57,57 +58,38 @@ DONE    - Finished
 */
 char add(){
     printf("Initiating add function...\n");
+    firstrecord = (struct record*)malloc(sizeof(struct record));
+    lastrecord = firstrecord;
     printf("Please type the full name: \n");
-    first_entry = _add();
+    lastrecord->_name = _add();
     printf("\nName was added!\n");
-
+    printf("Please type in the number: \n");
+    lastrecord->_number = _add();
+    printf("\nNumber was added!\n");
+    printf("Please type in the affiliation: \n");
+    lastrecord->_affiliation = _add();
+    printf("\nAffiliation was added!\n");
+    lastrecord->nxt_record = NULL;
     return DONE;
 }
 
 /*
 add_name - this function allocates memory of the added name.
 */
-struct Entry *_add(){
-    char *_entry,*_bufferptr;
-    size_t _buffersize;
-    _entry = (char *)malloc(sizeof(_entry)); //allocate a memory location to a pointer variable _entry
-    // _buffer = (char *)malloc(sizeof(_buffer));
-    // scanf("%[^'\n']%*c", _name); //scan all incoming characters from keyboard except enter '\n' and put it in the memory location of pointer _entry
-    gets(_entry); //scan a string
-    // printf("%s\n", _entry);//FOR DEBUG PURPOSES
-    // printf("%s\n", _entry);//FOR DEBUG PURPOSES
-    // printf("%s\n", _entry);//FOR DEBUG PURPOSES
-    // _entry = (char *)calloc(strlen(_entry));
-    _buffersize = strlen(_entry);
-    // printf("%i\n", _buffersize);
-    _bufferptr = (char *)malloc(_buffersize);
-    _bufferptr = _entry;
-    // // strcpy(_bufferptr,_entry);
-    // // printf(".");
-    // char _buffer[_buffersize];  
-    // for(int _i = 0; *_entry != '\0'; _i++){
-    //     _buffer[_i] = *_entry;
-    //     _entry++;
-    // }
-    // printf(".");
-    // _bufferptr = _buffer;
-    // printf(".");
-    first_entry = (struct Entry*)malloc(sizeof(struct Entry)); //allocate a memory location for the firstletter of the entry
+struct Entry _add(){
+    char buffer[32];
+    gets(buffer); //scan a string
     printf(".");
-    last_entry = first_entry;
-    // printf(".");
-    last_entry->letter = _bufferptr;
-    // printf(".");
-    printf("%s", last_entry->letter);
-    last_entry = first_entry; //entrypass the pointer memory address of the firstletter_name to the last_entry
-    // printf(".");
-    // last_entry->nxt_letter = NULL; //terminate the latest node
-    // printf("%s",*firstletter_name->letter);
-    // printf("%s", _name); // FOR DEBUG PURPOSES
-    // printf(".");
+    printf(".");
+    //transfer the value of the buffer to the data array.
+    for(int _i = 0; (_i < 32) || (buffer[_i] != '\0'); _i ++){
+        _entry->_data[_i] = buffer[_i];
+        printf("%c", buffer[_i]);
+    }
+    printf("\n%s", buffer);
+    printf("\n%s", _entry->_data);
     getch();
-    free(_entry);//free the allocated memory on the pointer variable '_entry'
-    return 0;
+    return *_entry; // return the scanned value
 }
 
 /*

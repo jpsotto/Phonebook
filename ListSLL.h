@@ -16,38 +16,40 @@ void insert(int _x,struct node *_L);
 /*
 Requirement functions for add
 */
-struct Entry *_add(void);
+struct Entry _add(void);
+char *mem_alloc(size_t _memsize);
 /*
 Requirement functions!
 */
-char add();
+// char add();
 void browse(void);
 void change(void);
 void delete(void);
 
-/*
-Requirement Structure
-*/
-struct record{
-    struct Name *record_name;
-    long int record_number;
-    struct Affiliation *record_affiliation;
-};
 
 /*
 Structure for Name
 */
 struct Entry{
-    char *letter;
-    struct Entry *nxt_letter;
+    char _data[32];
 };
 int namesize;
 /*
-Structure for Name
+Structure for a Info
 */
 struct Affiliation{
     char _letter;
     struct Affiliation *next_letter;
 };
 
+
+/*
+Requirement Structure
+*/
+struct record{
+    struct Entry _name;
+    struct Entry _number;
+    struct Entry _affiliation;
+    struct record *nxt_record;
+};
 #endif
