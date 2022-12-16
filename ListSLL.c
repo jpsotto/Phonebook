@@ -57,36 +57,54 @@ OG      - Ongoing
 DONE    - Finished
 */
 char add(){
-    printf("Initiating add function...\n");
-    firstrecord = (struct record*)malloc(sizeof(struct record));
-    lastrecord = firstrecord;
-    printf("Please type the full name: \n");
-    lastrecord->_name = _add();
-    printf("\nName was added!\n");
-    printf("Please type in the number: \n");
-    lastrecord->_number = _add();
-    printf("\nNumber was added!\n");
-    printf("Please type in the affiliation: \n");
-    lastrecord->_affiliation = _add();
-    printf("\nAffiliation was added!\n");
-    lastrecord->nxt_record = NULL;
+    if(firstrecord == NULL){
+        printf("Initiating add function...\n");
+        firstrecord = (struct record*)malloc(sizeof(struct record));
+        lastrecord = firstrecord;
+        printf("Please type the full name: \n");
+        lastrecord->_name = _add();
+        printf("\nName was added!\n");
+        printf("Please type in the number: \n");
+        lastrecord->_number = _add();
+        printf("\nNumber was added!\n");
+        printf("Please type in the affiliation: \n");
+        lastrecord->_affiliation = _add();
+        printf("\nAffiliation was added!\n");
+        lastrecord->nxt_record = NULL;
+    }
+    else{
+        lastrecord->nxt_record = (struct record*)malloc(sizeof(struct record));
+        printf("Please type the full name: \n");
+        lastrecord->nxt_record->_name = _add();
+        printf("\nName was added!\n");
+        printf("Please type in the number: \n");
+        lastrecord->nxt_record->_number = _add();
+        printf("\nNumber was added!\n");
+        printf("Please type in the affiliation: \n");
+        lastrecord->nxt_record->_affiliation = _add();
+        printf("\nAffiliation was added!\n");
+        lastrecord->nxt_record->nxt_record = NULL;
+        lastrecord = lastrecord -> nxt_record;
+        getch();
+    }
+    
     return DONE;
 }
 
 /*
-add_name - this function allocates memory of the added name.
+_add - this function allocates memory of the added name.
 */
-struct Entry _add(){
+inline struct Entry _add(){
     char buffer[32];
     gets(buffer); //scan a string
-    printf(".");
-    printf(".");
+    // printf(".");
+    // printf(".");
     //transfer the value of the buffer to the data array.
     for(int _i = 0; (_i < 32) || (buffer[_i] != '\0'); _i ++){
         _entry->_data[_i] = buffer[_i];
-        printf("%c", buffer[_i]);
+        // printf("%c", buffer[_i]);
     }
-    printf("\n%s", buffer);
+    // printf("\n%s", buffer);
     printf("\n%s", _entry->_data);
     getch();
     return *_entry; // return the scanned value
@@ -95,23 +113,39 @@ struct Entry _add(){
 /*
 This function checks on all the contents of the node and prints it.
 */
-void browse(){
-    //SIMULATED CODE ONLY
-    printf("Browsing phonebook...");
-    //***LATEST CODE
-    // struct node *browsebuffer;
-    // browsebuffer = _firstnode;
-    // // check if node is empty
-    // if(browsebuffer == NULL){
-    //     printf("Node is empty!");
-    // }
-    // else{
-    //     while(browsebuffer != NULL){
-    //         //print data of the recent node
-    //         printf("CONTENT: %d \n", browsebuffer->x);
-    //         browsebuffer = browsebuffer->nxt;
-    //     }
-    // }
+char browse(){
+    /*
+    start of the code
+    */
+   if(firstrecord == NULL){
+        printf("The phonebook is empty!\n");
+   }
+    else{
+        int k = 0;
+        for(int i = 0; i < 32; i++){
+            k = i;
+            _browse = firstrecord;
+            while(k > 0){
+                _browse = _browse->nxt_record;
+                k--;
+            }
+            if(_browse != NULL){
+                browse_buffer = _browse->_name;
+                printf("%s\t", browse_buffer._data);
+                browse_buffer = _browse->_number;
+                printf("%s\t", browse_buffer._data);
+                browse_buffer = _browse->_affiliation;
+                printf("%s\n", browse_buffer._data);
+            }
+            else{
+                i = 32;
+            }
+            // printf("\nhellow");
+        }
+   }
+   
+    getch();
+    return DONE;
 }
 
 /*

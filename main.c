@@ -44,6 +44,7 @@ while(1){
                 switch(_main_app_indicator){
                     case 0:
                         printf("Execute add command!\n");
+                        list_response = OG;
                         list_response = add();
                         if(list_response == DONE){
                             app_response = DEFAULT;
@@ -51,7 +52,13 @@ while(1){
                         }
                         break;
                     case 1:
-                        printf("Execute browse command!");
+                        printf("Execute browse command!\n");
+                        list_response = OG;
+                        list_response = browse();
+                        if(list_response == DONE){
+                            app_response = DEFAULT;
+                            cls(hStdout);//clear screen
+                        }
                         break;
                     case 2:
                         printf("Execute change command!");

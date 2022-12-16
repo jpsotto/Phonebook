@@ -22,7 +22,7 @@ char *mem_alloc(size_t _memsize);
 Requirement functions!
 */
 // char add();
-void browse(void);
+char browse(void);
 void change(void);
 void delete(void);
 
@@ -33,15 +33,6 @@ Structure for Name
 struct Entry{
     char _data[32];
 };
-int namesize;
-/*
-Structure for a Info
-*/
-struct Affiliation{
-    char _letter;
-    struct Affiliation *next_letter;
-};
-
 
 /*
 Requirement Structure
@@ -52,4 +43,7 @@ struct record{
     struct Entry _affiliation;
     struct record *nxt_record;
 };
+
+struct Entry browse_buffer;
+struct record *_browse;
 #endif
