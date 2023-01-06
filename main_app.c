@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <conio.h>
 #include "main_app.h"
+
+extern char *_enter_key_indicator;//This pointer indicates when a enter is pressed.
 /*
 Update the cursor in the Main App
 */
@@ -62,7 +64,6 @@ Then the next value depends on what you press.
     // printf("%d\n",ch);//this is for debugging
     if(ch == 13){
         printf("Enter Key was pressed!");
-        _enter_key_indicator = (char *)malloc(sizeof(char));
         *_enter_key_indicator = 0x00;
         return ENTER;
     }

@@ -24,7 +24,9 @@ Requirement functions!
 // char add();
 char browse(void);
 void change(void);
-void delete(void);
+char delete(void);
+char delete_display(char _dresponse);
+char _dresponse = 0, delete_indicator = 0;
 
 
 /*
@@ -46,4 +48,5 @@ struct record{
 
 struct Entry browse_buffer;
 struct record *_browse;
+struct record *_delete;
 #endif

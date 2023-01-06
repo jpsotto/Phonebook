@@ -7,6 +7,7 @@ extern struct node *_firstnode, *_lastnode;
 extern struct Entry *_entry;
 extern struct record *firstrecord, *lastrecord;
 extern long int _numberbuffer;
+//initialize getch handler
 // extern char *_name,*_affiliation;
 // extern long int *_phone_number;
 /*
@@ -105,8 +106,8 @@ inline struct Entry _add(){
         // printf("%c", buffer[_i]);
     }
     // printf("\n%s", buffer);
-    printf("\n%s", _entry->_data);
-    getch();
+    // printf("\n%s", _entry->_data);
+    // getch();
     return *_entry; // return the scanned value
 }
 
@@ -140,7 +141,6 @@ char browse(){
             else{
                 i = 32;
             }
-            // printf("\nhellow");
         }
    }
    
@@ -158,6 +158,57 @@ void change(){
 /*
 This function deletes an existing nod in the phonebook.
 */
-void delete(){
-    printf("An instance has been deleted!");
+char delete_display(char _dresponse){
+    int _ch;
+    char _dmarker[32];
+    // printf("An instance has been deleted!");
+    /*
+    Start of Code
+    */
+   for(int i = 0; i < 32; i++){
+        _dmarker[i] = 0;
+    }
+    _dmarker[delete_indicator] = '>';
+
+    if(firstrecord == NULL){
+        printf("The phonebook is empty!\n");
+        getch();
+        return DONE;
+   }
+    else{
+        int k = 0;
+        printf("Please select a record from the list to be deleted\n");
+        for(int i = 0; i < 32; i++){
+            k = i;
+            _delete = firstrecord;
+            while(k > 0){
+                _delete = _delete->nxt_record;
+                k--;
+            }
+            if(_delete != NULL){
+                browse_buffer = _delete->_name;
+                printf("%s\t", browse_buffer._data);
+                browse_buffer = _delete->_number;
+                printf("%s\t", browse_buffer._data);
+                browse_buffer = _delete->_affiliation;
+                printf("%s%c\n", browse_buffer._data,_dmarker);
+            }
+            else{
+                i = 32;
+            }
+        }
+        _ch = getch();
+        return OG;
+    }
+    
+}
+
+/*
+this function shows the screen of nodes to be deleted
+*/
+
+char delete(){
+    int _ch;
+    char _marker[32];
+
 }

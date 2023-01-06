@@ -15,6 +15,8 @@ struct record *firstrecord, *lastrecord;
 long int _numberbuffer;
 char app_response=0x00;
 char list_response = 0x00;
+char *_enter_key_indicator;//This pointer indicates when a enter is pressed.
+
 
 int main(){
 int ch;
@@ -26,6 +28,11 @@ Windows.h terminal_ctrl Initialization
 */
 HANDLE hStdout;
 hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+/*
+Initialize Key Indicator
+*/
+_enter_key_indicator = (char *)malloc(sizeof(char));
 
 /*
 Initiate Entry buffer;
@@ -64,7 +71,27 @@ while(1){
                         printf("Execute change command!");
                         break;
                     case 3:
-                        printf("Execute detected command!");
+                        printf("Execute delete command!\n");
+                        list_response = NS;
+                        while(list_response != DONE){
+                            switch(list_response){
+                            case NS:
+                                list_response = delete_display(_dresponse);
+                                break;
+                            case DONE:
+                                app_response = DEFAULT;
+                                cls(hStdout);//clear screen
+                                break;
+                            case OG:
+                                cls(hStdout);//clear screen
+                                list_response = delete_display(_dresponse);
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                        app_response = DEFAULT;
+                         cls(hStdout);//clear screen
                         break;
                     default:
                         cls(hStdout);//clear screen
