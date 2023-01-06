@@ -26,7 +26,7 @@ char browse(void);
 void change(void);
 char delete(void);
 char delete_display(char _dresponse);
-char _dresponse = 0, delete_indicator = 0;
+char _dresponse = 0, delete_indicator = 0, _di = 0;
 
 
 /*

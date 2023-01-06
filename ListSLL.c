@@ -98,16 +98,10 @@ _add - this function allocates memory of the added name.
 inline struct Entry _add(){
     char buffer[32];
     gets(buffer); //scan a string
-    // printf(".");
-    // printf(".");
-    //transfer the value of the buffer to the data array.
     for(int _i = 0; (_i < 32) || (buffer[_i] != '\0'); _i ++){
         _entry->_data[_i] = buffer[_i];
         // printf("%c", buffer[_i]);
     }
-    // printf("\n%s", buffer);
-    // printf("\n%s", _entry->_data);
-    // getch();
     return *_entry; // return the scanned value
 }
 
@@ -156,28 +150,34 @@ void change(){
 }
 
 /*
-This function deletes an existing nod in the phonebook.
+This function deletes an existing node in the phonebook.
 */
 char delete_display(char _dresponse){
-    int _ch;
+    int _ch,_n;
     char _dmarker[32];
     // printf("An instance has been deleted!");
     /*
     Start of Code
     */
+   //reset _dmarker
    for(int i = 0; i < 32; i++){
         _dmarker[i] = 0;
     }
+    //set marker to specific entry
     _dmarker[delete_indicator] = '>';
 
+    //prompt if no entries
     if(firstrecord == NULL){
         printf("The phonebook is empty!\n");
         getch();
         return DONE;
-   }
+    }
+    //show list if there are records
     else{
         int k = 0;
+        //  printf("\n");
         printf("Please select a record from the list to be deleted\n");
+        printf("**NOTE:Press backspace to exit.\n");
         for(int i = 0; i < 32; i++){
             k = i;
             _delete = firstrecord;
@@ -191,13 +191,45 @@ char delete_display(char _dresponse){
                 browse_buffer = _delete->_number;
                 printf("%s\t", browse_buffer._data);
                 browse_buffer = _delete->_affiliation;
-                printf("%s%c\n", browse_buffer._data,_dmarker);
+                printf("%s", browse_buffer._data);
+                printf("%c\n", _dmarker[i]);
             }
             else{
+                _n = i-1;
                 i = 32;
             }
         }
         _ch = getch();
+        switch(_ch){
+            case 8:
+                return DONE;
+                break;
+            case 72:
+                // printf("Arrow up has been pressed!");
+                if(delete_indicator > 0){
+                    delete_indicator--;
+                }
+                break;
+            case 80:
+                // printf("Arrow down has been pressed!");
+                if(delete_indicator < _n){
+                    delete_indicator++;
+                }  
+                break;
+            case 75:
+                // printf("Arrow left has been pressed!");
+                break;
+            case 77:
+                // printf("Arrow right has been pressed!");
+                break;
+            case 13:
+                delete();
+                return DONE;
+                break;
+            default:
+                // printf("%i",_ch);//uncomment this for debug
+                break;
+        }
         return OG;
     }
     
@@ -207,8 +239,18 @@ char delete_display(char _dresponse){
 this function shows the screen of nodes to be deleted
 */
 
-char delete(){
+inline char delete(){
     int _ch;
     char _marker[32];
+    struct record *_erase;
+    _di = delete_indicator-1;//set the reference pointer to the entry before the deletion entry
 
+    _delete = firstrecord; //start _delete ptr value to the firstrecord
+    while(_di > 0){//iterate until the entry before the deletion entry
+         _delete = _delete->nxt_record;
+        _di--;
+    }
+    _erase = _delete->nxt_record; //store the pointer address of the selected record into another variable
+    _delete->nxt_record = _delete->nxt_record->nxt_record;  //move the pointer of the next entry to the end of the previous entry
+    free(_erase); //free up the memory allocated to the deletion entry to prevent memory leak
 }

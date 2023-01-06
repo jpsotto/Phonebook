@@ -50,7 +50,7 @@ while(1){
             if(*_enter_key_indicator == 0x00){
                 switch(_main_app_indicator){
                     case 0:
-                        printf("Execute add command!\n");
+                        // printf("Execute add command!\n");
                         list_response = OG;
                         list_response = add();
                         if(list_response == DONE){
@@ -59,7 +59,7 @@ while(1){
                         }
                         break;
                     case 1:
-                        printf("Execute browse command!\n");
+                        // printf("Execute browse command!\n");
                         list_response = OG;
                         list_response = browse();
                         if(list_response == DONE){
@@ -71,11 +71,12 @@ while(1){
                         printf("Execute change command!");
                         break;
                     case 3:
-                        printf("Execute delete command!\n");
+                        // printf("Execute delete command!\n");
                         list_response = NS;
                         while(list_response != DONE){
                             switch(list_response){
                             case NS:
+                                cls(hStdout);//clear screen
                                 list_response = delete_display(_dresponse);
                                 break;
                             case DONE:
