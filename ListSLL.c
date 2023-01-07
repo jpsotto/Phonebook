@@ -59,8 +59,15 @@ DONE    - Finished
 */
 char add(){
     if(firstrecord == NULL){
-        printf("Initiating add function...\n");
-        firstrecord = (struct record*)malloc(sizeof(struct record));
+        if(_delete == NULL){
+            printf("Initializing add function...\n");
+            firstrecord = (struct record*)malloc(sizeof(struct record));
+        }
+        else{
+            printf("Reusing memory...\n");
+            firstrecord = _delete;
+        }
+        
         lastrecord = firstrecord;
         printf("Please type the full name: \n");
         lastrecord->_name = _add();
@@ -117,6 +124,8 @@ char browse(){
    }
     else{
         int k = 0;
+        printf("NAME\tNUMBER\tAFFILIATION");
+        printf("\n");
         for(int i = 0; i < 32; i++){
             k = i;
             _browse = firstrecord;
@@ -137,24 +146,23 @@ char browse(){
             }
         }
    }
-   
     getch();
     return DONE;
 }
 
 char change_display(char _cresponse){
-        int _ch,_n;
-    char _dmarker[32];
+    int _cch = 0;
+    char _cmarker[32];
     // printf("An instance has been deleted!");
     /*
     Start of Code
     */
-   //reset _dmarker
+   //reset _cmarker
    for(int i = 0; i < 32; i++){
-        _dmarker[i] = 0;
+        _cmarker[i] = 0;
     }
     //set marker to specific entry
-    _dmarker[delete_indicator] = '>';
+    _cmarker[change_indicator] = '>';
 
     //prompt if no entries
     if(firstrecord == NULL){
@@ -166,44 +174,46 @@ char change_display(char _cresponse){
     else{
         int k = 0;
         //  printf("\n");
-        printf("Please select a record from the list to be deleted\n");
+        printf("Please select a record from the list to be changed\n");
         printf("**NOTE:Press backspace to exit.\n");
+        printf("NAME\tNUMBER\tAFFILIATION");
+        printf("\n");
         for(int i = 0; i < 32; i++){
             k = i;
-            _delete = firstrecord;
+            _change = firstrecord;
             while(k > 0){
-                _delete = _delete->nxt_record;
+                _change = _change->nxt_record;
                 k--;
             }
-            if(_delete != NULL){
-                browse_buffer = _delete->_name;
+            if(_change != NULL){
+                browse_buffer = _change->_name;
                 printf("%s\t", browse_buffer._data);
-                browse_buffer = _delete->_number;
+                browse_buffer = _change->_number;
                 printf("%s\t", browse_buffer._data);
-                browse_buffer = _delete->_affiliation;
+                browse_buffer = _change->_affiliation;
                 printf("%s", browse_buffer._data);
-                printf("%c\n", _dmarker[i]);
+                printf("%c\n", _cmarker[i]);
             }
             else{
-                _n = i-1;
+                _nc = i-1;
                 i = 32;
             }
         }
-        _ch = getch();
-        switch(_ch){
+        _cch = getch();
+        switch(_cch){
             case 8:
                 return DONE;
                 break;
             case 72:
                 // printf("Arrow up has been pressed!");
-                if(delete_indicator > 0){
-                    delete_indicator--;
+                if(change_indicator > 0){
+                    change_indicator--;
                 }
                 break;
             case 80:
                 // printf("Arrow down has been pressed!");
-                if(delete_indicator < _n){
-                    delete_indicator++;
+                if(change_indicator < _nc){
+                    change_indicator++;
                 }  
                 break;
             case 75:
@@ -213,7 +223,9 @@ char change_display(char _cresponse){
                 // printf("Arrow right has been pressed!");
                 break;
             case 13:
-                delete();
+                change();
+                // getch();
+                // printf("CHECK");
                 return DONE;
                 break;
             default:
@@ -227,15 +239,64 @@ char change_display(char _cresponse){
 /*
 This function changes the details of an already existing node in the phonebook.
 */
-void change(){
-    printf("An instance has been changed!");
+inline void change(){
+    // printf("An instance has been changed!");
+    char buffer[32];
+    _ci = change_indicator;
+    _change = firstrecord;
+    while(_ci > 0){
+        _change = _change->nxt_record;
+        _ci--;
+    }
+
+    //RESET THE VALUES IN THE ENTRY
+    reset_entry();
+
+    printf("Enter new name:\n");
+    gets(buffer); //scan a string
+    for(int _i = 0; (_i < 32) && (buffer[_i] != '\0'); _i ++){
+        _change->_name._data[_i] = buffer[_i];
+    }
+    reset_buffer(buffer);
+    printf("Enter new number:\n");
+    gets(buffer); //scan a string
+    for(int _i = 0; (_i < 32) && (buffer[_i] != '\0'); _i ++){
+        _change->_number._data[_i] = buffer[_i];
+    }
+    reset_buffer(buffer);
+    printf("Enter new affiliation:\n");
+    gets(buffer); //scan a string
+    for(int _i = 0; (_i < 32) && (buffer[_i] != '\0'); _i ++){
+        _change->_affiliation._data[_i] = buffer[_i];
+    }
+}
+
+/*
+This function resets the values in the _change struct pointer
+*/
+inline void reset_entry(){
+    for(int i = 0; i < 32; i++){
+        _change->_name._data[i] = 0;
+        _change->_number._data[i] = 0;
+        _change->_affiliation._data[i] = 0;
+    }
+}
+
+/*
+This function resets the values in the 32 bytes array pointer
+Input - char *
+*/
+inline void reset_buffer(char *_rbuffer){
+    for(int i = 0; i < 32; i++){
+        _rbuffer[i] = 0;
+    }
 }
 
 /*
 This function deletes an existing node in the phonebook.
 */
 char delete_display(char _dresponse){
-    int _ch;
+    int _ch = 0;
     char _dmarker[32];
     // printf("An instance has been deleted!");
     /*
@@ -260,6 +321,8 @@ char delete_display(char _dresponse){
         //  printf("\n");
         printf("Please select a record from the list to be deleted\n");
         printf("**NOTE:Press backspace to exit.\n");
+        printf("NAME\tNUMBER\tAFFILIATION");
+        printf("\n");
         for(int i = 0; i < 32; i++){
             k = i;
             _delete = firstrecord;
@@ -322,8 +385,6 @@ this function shows the screen of nodes to be deleted
 */
 
 inline char delete(){
-    int _ch;
-    char _marker[32];
     struct record *_erase;
     _di = delete_indicator-1;//set the reference pointer to the entry before the deletion entry
 
@@ -332,15 +393,19 @@ inline char delete(){
          _delete = _delete->nxt_record;
         _di--;
     }
-    
-    _erase = _delete;
-    if(delete_indicator == 1){
+
+    // _erase = _delete;
+    if(delete_indicator == 0){
+        _erase = _delete;
+    }
+    else{
         _erase = _delete->nxt_record;
     }
+    
     if(_n > 0){
         if(_erase == firstrecord){
-            printf("CHECK1!");
-            getch();
+            // printf("CHECK1!");
+            // getch();
             firstrecord = firstrecord->nxt_record;
             _delete = NULL;
             free(_delete); //free up the memory allocated to the deletion entry to prevent memory leak
@@ -351,14 +416,10 @@ inline char delete(){
         }
     }
     else{
-        //there is a bug in this routine. check for later
-        printf("CHECK!");
-        getch();
         _delete = firstrecord;
         _delete->nxt_record = NULL;
-        free(firstrecord);//free up the memory allocated to the deletion entry to prevent memory leak
         firstrecord = NULL;//terminate first record to prevent the bug of showing random character
-        // free(_erase); //free up the memory allocated to the deletion entry to prevent memory leak
+        //NOTE: 'firstrecord' pointer was stored in '_delete' variable which will be reused on the next add sequence. So the memory location need not be freed.
     }
     
 }

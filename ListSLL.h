@@ -25,10 +25,12 @@ Requirement functions!
 char browse(void);
 void change(void);
 char delete(void);
+void reset_entry(void);
+void reset_buffer(char *);
 char delete_display(char _dresponse);
 char change_display(char _cresponse);
 char _dresponse = 0, delete_indicator = 0, _di = 0, _cresponse = 0, change_indicator = 0, _ci = 0;
-int _n;
+int _n,_nc;
 
 
 /*

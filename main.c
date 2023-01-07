@@ -88,6 +88,8 @@ while(1){
                                 break;
                             }
                         }
+                        app_response = DEFAULT;
+                        cls(hStdout);//clear screen
                         break;
                     case 3:
                         // printf("Execute delete command!\n");
@@ -111,7 +113,7 @@ while(1){
                             }
                         }
                         app_response = DEFAULT;
-                         cls(hStdout);//clear screen
+                        cls(hStdout);//clear screen
                         break;
                     default:
                         cls(hStdout);//clear screen
