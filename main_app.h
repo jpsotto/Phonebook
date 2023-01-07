@@ -1,6 +1,7 @@
 #ifndef main_app
 #define main_app
 
+#define DEFAULT 0x00
 #define UP      0x01
 #define DOWN    0x02
 #define LEFT    0x03
@@ -12,7 +13,6 @@ void app_indicator(char);
 void footer();
 
 char _main_app_indicator = 4;
-char *_enter_key_indicator;//This pointer indicates when a enter is pressed.
 
 
 
