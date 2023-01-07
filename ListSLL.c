@@ -142,6 +142,88 @@ char browse(){
     return DONE;
 }
 
+char change_display(char _cresponse){
+        int _ch,_n;
+    char _dmarker[32];
+    // printf("An instance has been deleted!");
+    /*
+    Start of Code
+    */
+   //reset _dmarker
+   for(int i = 0; i < 32; i++){
+        _dmarker[i] = 0;
+    }
+    //set marker to specific entry
+    _dmarker[delete_indicator] = '>';
+
+    //prompt if no entries
+    if(firstrecord == NULL){
+        printf("The phonebook is empty!\n");
+        getch();
+        return DONE;
+    }
+    //show list if there are records
+    else{
+        int k = 0;
+        //  printf("\n");
+        printf("Please select a record from the list to be deleted\n");
+        printf("**NOTE:Press backspace to exit.\n");
+        for(int i = 0; i < 32; i++){
+            k = i;
+            _delete = firstrecord;
+            while(k > 0){
+                _delete = _delete->nxt_record;
+                k--;
+            }
+            if(_delete != NULL){
+                browse_buffer = _delete->_name;
+                printf("%s\t", browse_buffer._data);
+                browse_buffer = _delete->_number;
+                printf("%s\t", browse_buffer._data);
+                browse_buffer = _delete->_affiliation;
+                printf("%s", browse_buffer._data);
+                printf("%c\n", _dmarker[i]);
+            }
+            else{
+                _n = i-1;
+                i = 32;
+            }
+        }
+        _ch = getch();
+        switch(_ch){
+            case 8:
+                return DONE;
+                break;
+            case 72:
+                // printf("Arrow up has been pressed!");
+                if(delete_indicator > 0){
+                    delete_indicator--;
+                }
+                break;
+            case 80:
+                // printf("Arrow down has been pressed!");
+                if(delete_indicator < _n){
+                    delete_indicator++;
+                }  
+                break;
+            case 75:
+                // printf("Arrow left has been pressed!");
+                break;
+            case 77:
+                // printf("Arrow right has been pressed!");
+                break;
+            case 13:
+                delete();
+                return DONE;
+                break;
+            default:
+                // printf("%i",_ch);//uncomment this for debug
+                break;
+        }
+        return OG;
+    }
+}
+
 /*
 This function changes the details of an already existing node in the phonebook.
 */
@@ -153,13 +235,13 @@ void change(){
 This function deletes an existing node in the phonebook.
 */
 char delete_display(char _dresponse){
-    int _ch,_n;
+    int _ch;
     char _dmarker[32];
     // printf("An instance has been deleted!");
     /*
     Start of Code
     */
-   //reset _dmarker
+   //reset _cmarker
    for(int i = 0; i < 32; i++){
         _dmarker[i] = 0;
     }
@@ -250,7 +332,33 @@ inline char delete(){
          _delete = _delete->nxt_record;
         _di--;
     }
-    _erase = _delete->nxt_record; //store the pointer address of the selected record into another variable
-    _delete->nxt_record = _delete->nxt_record->nxt_record;  //move the pointer of the next entry to the end of the previous entry
-    free(_erase); //free up the memory allocated to the deletion entry to prevent memory leak
+    
+    _erase = _delete;
+    if(delete_indicator == 1){
+        _erase = _delete->nxt_record;
+    }
+    if(_n > 0){
+        if(_erase == firstrecord){
+            printf("CHECK1!");
+            getch();
+            firstrecord = firstrecord->nxt_record;
+            _delete = NULL;
+            free(_delete); //free up the memory allocated to the deletion entry to prevent memory leak
+        }
+        else{
+            _delete->nxt_record = _delete->nxt_record->nxt_record;  //move the pointer of the next entry to the end of the previous entry
+            free(_erase); //free up the memory allocated to the deletion entry to prevent memory leak
+        }
+    }
+    else{
+        //there is a bug in this routine. check for later
+        printf("CHECK!");
+        getch();
+        _delete = firstrecord;
+        _delete->nxt_record = NULL;
+        free(firstrecord);//free up the memory allocated to the deletion entry to prevent memory leak
+        firstrecord = NULL;//terminate first record to prevent the bug of showing random character
+        // free(_erase); //free up the memory allocated to the deletion entry to prevent memory leak
+    }
+    
 }

@@ -68,7 +68,26 @@ while(1){
                         }
                         break;
                     case 2:
-                        printf("Execute change command!");
+                        // printf("Execute change command!");
+                        list_response = NS;
+                        while(list_response != DONE){
+                            switch(list_response){
+                            case NS:
+                                cls(hStdout);//clear screen
+                                list_response = change_display(_cresponse);
+                                break;
+                            case DONE:
+                                app_response = DEFAULT;
+                                cls(hStdout);//clear screen
+                                break;
+                            case OG:
+                                cls(hStdout);//clear screen
+                                list_response = change_display(_cresponse);
+                                break;
+                            default:
+                                break;
+                            }
+                        }
                         break;
                     case 3:
                         // printf("Execute delete command!\n");

@@ -26,7 +26,9 @@ char browse(void);
 void change(void);
 char delete(void);
 char delete_display(char _dresponse);
-char _dresponse = 0, delete_indicator = 0, _di = 0;
+char change_display(char _cresponse);
+char _dresponse = 0, delete_indicator = 0, _di = 0, _cresponse = 0, change_indicator = 0, _ci = 0;
+int _n;
 
 
 /*
@@ -49,4 +51,5 @@ struct record{
 struct Entry browse_buffer;
 struct record *_browse;
 struct record *_delete;
+struct record *_change;
 #endif
